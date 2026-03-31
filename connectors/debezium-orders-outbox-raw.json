@@ -1,0 +1,27 @@
+{
+  "name": "debezium-orders-outbox-raw",
+  "config": {
+    "connector.class": "io.debezium.connector.postgresql.PostgresConnector",
+    "tasks.max": "1",
+    "database.hostname": "postgres",
+    "database.port": "5432",
+    "database.user": "dbz_user",
+    "database.password": "__INJECTED_AT_APPLY_TIME__",
+    "database.dbname": "orders",
+    "database.server.name": "dbz.orders",
+    "topic.prefix": "dbz.orders",
+    "slot.name": "dbz_orders_raw_slot",
+    "publication.name": "dbz_publication",
+    "plugin.name": "pgoutput",
+    "table.include.list": "public.outbox_events",
+    "snapshot.mode": "never",
+    "tombstones.on.delete": "false",
+    "transforms": "routeRaw",
+    "transforms.routeRaw.type": "org.apache.kafka.connect.transforms.RegexRouter",
+    "transforms.routeRaw.regex": "dbz\\.orders\\.public\\.outbox_events",
+    "transforms.routeRaw.replacement": "dbz.orders.outbox_events",
+    "errors.tolerance": "all",
+    "errors.deadletterqueue.topic.name": "dlq.v1.notifications",
+    "errors.deadletterqueue.context.headers.enable": "true"
+  }
+}

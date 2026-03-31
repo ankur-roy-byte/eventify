@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "PaymentRequested",
+  "namespace": "com.example.events.payments.v1",
+  "fields": [
+    { "name": "order_id", "type": "string" },
+    { "name": "amount", "type": "double" },
+    { "name": "requested_at", "type": "string" }
+  ]
+}

@@ -1,0 +1,5 @@
+KafkaServer {
+  org.apache.kafka.common.security.scram.ScramLoginModule required
+  username="<SCRAM_ADMIN_USERNAME>"
+  password="<SCRAM_ADMIN_PASSWORD>";
+};

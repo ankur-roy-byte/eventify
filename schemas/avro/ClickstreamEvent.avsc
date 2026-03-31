@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "ClickstreamEvent",
+  "namespace": "com.example.events.web.v1",
+  "fields": [
+    { "name": "event_id", "type": "string" },
+    { "name": "session_id", "type": "string" },
+    { "name": "customer_id", "type": "string" },
+    { "name": "path", "type": "string" },
+    { "name": "event_at", "type": "string" }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "InventoryReserved",
+  "namespace": "com.example.events.inventory.v1",
+  "fields": [
+    { "name": "order_id", "type": "string" },
+    { "name": "inventory_status", "type": "string" },
+    { "name": "reserved_at", "type": "string" }
+  ]
+}

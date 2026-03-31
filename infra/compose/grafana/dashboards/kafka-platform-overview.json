@@ -1,0 +1,87 @@
+{
+  "id": null,
+  "title": "Kafka Platform Overview",
+  "tags": ["kafka", "streams", "connect", "mm2"],
+  "timezone": "browser",
+  "schemaVersion": 39,
+  "version": 1,
+  "refresh": "15s",
+  "panels": [
+    {
+      "id": 1,
+      "title": "Broker Throughput (Messages/sec)",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 0},
+      "targets": [
+        {
+          "expr": "sum(rate(kafka_server_brokertopicmetrics_messagesinpersec_total[1m]))",
+          "legendFormat": "messages_in"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "title": "Under Replicated Partitions",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 0},
+      "targets": [
+        {
+          "expr": "sum(kafka_server_replicamanager_underreplicatedpartitions)",
+          "legendFormat": "urp"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "title": "Consumer Lag by Group/Topic",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 8},
+      "targets": [
+        {
+          "expr": "sum by (consumergroup, topic) (kafka_consumergroup_lag)",
+          "legendFormat": "{{consumergroup}} :: {{topic}}"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "title": "Connect Task Health",
+      "type": "stat",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 8},
+      "targets": [
+        {
+          "expr": "sum(kafka_connect_connect_worker_metrics_connector_count)",
+          "legendFormat": "connector_count"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "title": "ISR Shrink/Expand (Rate)",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 0, "y": 16},
+      "targets": [
+        {
+          "expr": "sum(rate(kafka_server_replicamanager_isrshrinkspersec_total[5m]))",
+          "legendFormat": "isr_shrinks"
+        },
+        {
+          "expr": "sum(rate(kafka_server_replicamanager_isrexpandspersec_total[5m]))",
+          "legendFormat": "isr_expands"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "title": "MirrorMaker2 Replication Throughput",
+      "type": "timeseries",
+      "gridPos": {"h": 8, "w": 12, "x": 12, "y": 16},
+      "targets": [
+        {
+          "expr": "sum(rate(kafka_connect_mirror_source_task_metrics_recordssent_total[1m]))",
+          "legendFormat": "mm2_records_sent"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+version: "3.9"
+
+services:
+  kafka1:
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:SSL,PLAINTEXT:SASL_SSL,EXTERNAL:SASL_SSL
+      KAFKA_SASL_ENABLED_MECHANISMS: SCRAM-SHA-512
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: SCRAM-SHA-512
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/jaas/kafka_server_jaas.conf
+      KAFKA_AUTHORIZER_CLASS_NAME: org.apache.kafka.metadata.authorizer.StandardAuthorizer
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "false"
+      KAFKA_SUPER_USERS: User:admin
+    volumes:
+      - ./security/jaas:/etc/kafka/jaas:ro
+
+  kafka2:
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:SSL,PLAINTEXT:SASL_SSL,EXTERNAL:SASL_SSL
+      KAFKA_SASL_ENABLED_MECHANISMS: SCRAM-SHA-512
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: SCRAM-SHA-512
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/jaas/kafka_server_jaas.conf
+      KAFKA_AUTHORIZER_CLASS_NAME: org.apache.kafka.metadata.authorizer.StandardAuthorizer
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "false"
+      KAFKA_SUPER_USERS: User:admin
+    volumes:
+      - ./security/jaas:/etc/kafka/jaas:ro
+
+  kafka3:
+    environment:
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:SSL,PLAINTEXT:SASL_SSL,EXTERNAL:SASL_SSL
+      KAFKA_SASL_ENABLED_MECHANISMS: SCRAM-SHA-512
+      KAFKA_SASL_MECHANISM_INTER_BROKER_PROTOCOL: SCRAM-SHA-512
+      KAFKA_OPTS: -Djava.security.auth.login.config=/etc/kafka/jaas/kafka_server_jaas.conf
+      KAFKA_AUTHORIZER_CLASS_NAME: org.apache.kafka.metadata.authorizer.StandardAuthorizer
+      KAFKA_ALLOW_EVERYONE_IF_NO_ACL_FOUND: "false"
+      KAFKA_SUPER_USERS: User:admin
+    volumes:
+      - ./security/jaas:/etc/kafka/jaas:ro

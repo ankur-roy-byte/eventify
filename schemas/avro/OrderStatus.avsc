@@ -1,0 +1,12 @@
+{
+  "type": "record",
+  "name": "OrderStatus",
+  "namespace": "com.example.events.orders.v1",
+  "fields": [
+    { "name": "order_id", "type": "string" },
+    { "name": "status", "type": "string" },
+    { "name": "payment_status", "type": ["null", "string"], "default": null },
+    { "name": "inventory_status", "type": ["null", "string"], "default": null },
+    { "name": "updated_at", "type": "string" }
+  ]
+}

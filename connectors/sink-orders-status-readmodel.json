@@ -1,0 +1,23 @@
+{
+  "name": "sink-orders-status-readmodel",
+  "config": {
+    "connector.class": "io.confluent.connect.jdbc.JdbcSinkConnector",
+    "tasks.max": "1",
+    "topics": "orders.v1.status",
+    "connection.url": "jdbc:postgresql://postgres:5432/orders",
+    "connection.user": "orders_app",
+    "connection.password": "__INJECTED_AT_APPLY_TIME__",
+    "auto.create": "true",
+    "auto.evolve": "true",
+    "insert.mode": "upsert",
+    "pk.mode": "record_key",
+    "pk.fields": "order_id",
+    "delete.enabled": "false",
+    "table.name.format": "orders_status_readmodel",
+    "errors.tolerance": "all",
+    "errors.deadletterqueue.topic.name": "dlq.v1.notifications",
+    "errors.deadletterqueue.context.headers.enable": "true",
+    "errors.log.enable": "true",
+    "errors.log.include.messages": "true"
+  }
+}

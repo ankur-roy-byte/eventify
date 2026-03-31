@@ -1,0 +1,40 @@
+# Build outputs
+**/target/
+**/.gradle/
+
+# Python
+**/__pycache__/
+**/*.pyc
+**/.venv/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Runtime artifacts
+*.log
+*.pid
+*.tmp
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+infra/compose/.env.local
+
+# Certificates and keystores
+*.pem
+*.key
+*.crt
+*.cer
+*.p12
+*.jks
+infra/compose/security/certs/

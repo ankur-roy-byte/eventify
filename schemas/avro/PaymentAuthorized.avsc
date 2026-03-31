@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "PaymentAuthorized",
+  "namespace": "com.example.events.payments.v1",
+  "fields": [
+    { "name": "order_id", "type": "string" },
+    { "name": "payment_status", "type": "string" },
+    { "name": "authorized_at", "type": "string" }
+  ]
+}

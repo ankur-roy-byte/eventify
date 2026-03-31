@@ -1,0 +1,13 @@
+{
+  "type": "record",
+  "name": "OrderCreated",
+  "namespace": "com.example.events.orders.v2",
+  "fields": [
+    { "name": "order_id", "type": "string" },
+    { "name": "customer_id", "type": "string" },
+    { "name": "product_id", "type": "string" },
+    { "name": "total_amount", "type": "double" },
+    { "name": "created_at", "type": "string" },
+    { "name": "coupon_code", "type": ["null", "string"], "default": null }
+  ]
+}

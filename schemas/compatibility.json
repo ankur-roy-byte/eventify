@@ -1,0 +1,8 @@
+{
+  "global": "BACKWARD",
+  "subjectNamingStrategy": "<topic>-value",
+  "notes": [
+    "Use optional fields with defaults for backward-compatible schema evolution.",
+    "All domain topics use Avro with Schema Registry."
+  ]
+}

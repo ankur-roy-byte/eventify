@@ -1,0 +1,92 @@
+version: "3.9"
+
+services:
+  controller1:
+    image: confluentinc/cp-kafka:8.0.0
+    container_name: controller1
+    profiles: ["separated"]
+    environment:
+      CLUSTER_ID: ${KAFKA_CLUSTER_ID}
+      KAFKA_NODE_ID: 201
+      KAFKA_PROCESS_ROLES: controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 201@controller1:9093,202@controller2:9093,203@controller3:9093
+      KAFKA_LISTENERS: CONTROLLER://controller1:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT
+
+  controller2:
+    image: confluentinc/cp-kafka:8.0.0
+    container_name: controller2
+    profiles: ["separated"]
+    environment:
+      CLUSTER_ID: ${KAFKA_CLUSTER_ID}
+      KAFKA_NODE_ID: 202
+      KAFKA_PROCESS_ROLES: controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 201@controller1:9093,202@controller2:9093,203@controller3:9093
+      KAFKA_LISTENERS: CONTROLLER://controller2:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT
+
+  controller3:
+    image: confluentinc/cp-kafka:8.0.0
+    container_name: controller3
+    profiles: ["separated"]
+    environment:
+      CLUSTER_ID: ${KAFKA_CLUSTER_ID}
+      KAFKA_NODE_ID: 203
+      KAFKA_PROCESS_ROLES: controller
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 201@controller1:9093,202@controller2:9093,203@controller3:9093
+      KAFKA_LISTENERS: CONTROLLER://controller3:9093
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: CONTROLLER:PLAINTEXT
+
+  broker4:
+    image: confluentinc/cp-kafka:8.0.0
+    container_name: broker4
+    profiles: ["separated"]
+    ports:
+      - "59092:59092"
+    environment:
+      CLUSTER_ID: ${KAFKA_CLUSTER_ID}
+      KAFKA_NODE_ID: 4
+      KAFKA_PROCESS_ROLES: broker
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 201@controller1:9093,202@controller2:9093,203@controller3:9093
+      KAFKA_LISTENERS: PLAINTEXT://broker4:9092,EXTERNAL://0.0.0.0:59092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker4:9092,EXTERNAL://localhost:59092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+  broker5:
+    image: confluentinc/cp-kafka:8.0.0
+    container_name: broker5
+    profiles: ["separated"]
+    ports:
+      - "69092:69092"
+    environment:
+      CLUSTER_ID: ${KAFKA_CLUSTER_ID}
+      KAFKA_NODE_ID: 5
+      KAFKA_PROCESS_ROLES: broker
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 201@controller1:9093,202@controller2:9093,203@controller3:9093
+      KAFKA_LISTENERS: PLAINTEXT://broker5:9092,EXTERNAL://0.0.0.0:69092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker5:9092,EXTERNAL://localhost:69092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
+
+  broker6:
+    image: confluentinc/cp-kafka:8.0.0
+    container_name: broker6
+    profiles: ["separated"]
+    ports:
+      - "79092:79092"
+    environment:
+      CLUSTER_ID: ${KAFKA_CLUSTER_ID}
+      KAFKA_NODE_ID: 6
+      KAFKA_PROCESS_ROLES: broker
+      KAFKA_CONTROLLER_QUORUM_VOTERS: 201@controller1:9093,202@controller2:9093,203@controller3:9093
+      KAFKA_LISTENERS: PLAINTEXT://broker6:9092,EXTERNAL://0.0.0.0:79092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://broker6:9092,EXTERNAL://localhost:79092
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT,CONTROLLER:PLAINTEXT
