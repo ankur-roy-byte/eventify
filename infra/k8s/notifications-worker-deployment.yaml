@@ -13,9 +13,14 @@ spec:
       labels:
         app: notifications-worker
     spec:
+      serviceAccountName: default
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        fsGroup: 1000
       containers:
         - name: notifications-worker
-          image: ghcr.io/example/pulsemart-notifications-worker:latest
+          image: ghcr.io/example/pulsemart-notifications-worker:0.1.0
           imagePullPolicy: IfNotPresent
           env:
             - name: KAFKA_BOOTSTRAP_SERVERS
@@ -28,3 +33,21 @@ spec:
                 configMapKeyRef:
                   name: platform-config
                   key: SCHEMA_REGISTRY_URL
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+          livenessProbe:
+            exec:
+              command: ["python", "-c", "import sys; sys.exit(0)"]
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            failureThreshold: 3
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
