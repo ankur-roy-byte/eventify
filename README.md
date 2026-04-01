@@ -221,6 +221,15 @@ All domain topics use Avro + Schema Registry with subject naming `<topic>-value`
 
 KRaft authorization target uses `StandardAuthorizer` for ACL enforcement.
 
+Stage B ACLs cover all four service principals with least-privilege grants:
+
+| Principal | Read topics | Write topics | Other |
+|---|---|---|---|
+| payments-worker | orders.v1.events | payments.v1.events | IdempotentWrite |
+| inventory-worker | orders.v1.events | inventory.v1.events | IdempotentWrite |
+| streams-order-status | orders.v1.events, payments.v1.events, inventory.v1.events | orders.v1.status, risk.v1.fraud_alerts | Create (internal topics prefix), IdempotentWrite |
+| notifications-worker | orders.v1.status, risk.v1.fraud_alerts, retry topics | retry topics, dlq.v1.notifications | — |
+
 ## Observability Architecture
 
 - Broker metrics via JMX exporter sidecars
@@ -285,13 +294,15 @@ KRaft authorization target uses `StandardAuthorizer` for ACL enforcement.
 
 - Explicit topic provisioning and policy controls
 - CDC + outbox pattern to avoid dual-write hazards
-- Schema compatibility policy and evolution workflow
+- Schema compatibility policy and evolution workflow; semantically correct per-topic schemas (e.g. `FraudAlert` for `risk.v1.fraud_alerts`)
+- REST API input validation with constraint annotations; outbox JSON payload built via `ObjectMapper` to prevent injection
 - High-value transactional processing for critical events
 - Stateful stream processing with exactly-once guarantees
 - Error-tolerant sinks and DLQ routing
 - Observability stack with lag and broker internals
-- Security posture progression (TLS -> SCRAM/ACL)
+- Security posture progression (TLS -> SCRAM/ACL) with complete per-principal ACLs
 - DR replication topology and failover drills
+- Kubernetes manifests hardened with resource limits, liveness/readiness probes, non-root security context, and pinned image tags
 
 ## Documentation Index
 

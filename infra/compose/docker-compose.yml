@@ -135,6 +135,8 @@ services:
     restart: unless-stopped
     environment:
       discovery.type: single-node
+      # WARNING: security plugin is disabled for local development only.
+      # In staging/production, remove this line and configure TLS + admin credentials.
       plugins.security.disabled: "true"
       OPENSEARCH_JAVA_OPTS: -Xms512m -Xmx512m
     ports:
