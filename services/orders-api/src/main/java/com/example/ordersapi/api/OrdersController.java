@@ -4,6 +4,7 @@ import com.example.ordersapi.model.CreateOrderRequest;
 import com.example.ordersapi.service.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,7 +24,7 @@ public class OrdersController {
     }
 
     @PostMapping
-    public ResponseEntity<Map<String, String>> create(@RequestBody CreateOrderRequest request) {
+    public ResponseEntity<Map<String, String>> create(@Valid @RequestBody CreateOrderRequest request) {
         UUID orderId = orderService.createOrder(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(Map.of("orderId", orderId.toString()));
     }
