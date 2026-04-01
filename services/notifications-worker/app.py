@@ -109,7 +109,7 @@ def main() -> int:
 
     schemas_dir = Path(__file__).resolve().parents[2] / "schemas" / "avro"
     order_status_schema = (schemas_dir / "OrderStatus.avsc").read_text(encoding="utf-8")
-    fraud_alert_schema = (schemas_dir / "PaymentRequested.avsc").read_text(encoding="utf-8")
+    fraud_alert_schema = (schemas_dir / "FraudAlert.avsc").read_text(encoding="utf-8")
 
     schema_registry_client = SchemaRegistryClient({"url": schema_registry_url})
     status_deserializer = AvroDeserializer(schema_registry_client, order_status_schema)

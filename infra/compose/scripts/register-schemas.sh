@@ -21,7 +21,7 @@ register_schema "orders.v1.events-value" "schemas/avro/OrderCreated.avsc"
 register_schema "payments.v1.events-value" "schemas/avro/PaymentAuthorized.avsc"
 register_schema "inventory.v1.events-value" "schemas/avro/InventoryReserved.avsc"
 register_schema "orders.v1.status-value" "schemas/avro/OrderStatus.avsc"
-register_schema "risk.v1.fraud_alerts-value" "schemas/avro/PaymentRequested.avsc"
+register_schema "risk.v1.fraud_alerts-value" "schemas/avro/FraudAlert.avsc"
 register_schema "web.v1.clickstream-value" "schemas/avro/ClickstreamEvent.avsc"
 
 echo "Schema registration complete."

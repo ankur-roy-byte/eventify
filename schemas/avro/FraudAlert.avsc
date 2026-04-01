@@ -1,0 +1,10 @@
+{
+  "type": "record",
+  "name": "FraudAlert",
+  "namespace": "com.example.events.risk.v1",
+  "fields": [
+    { "name": "order_id", "type": "string" },
+    { "name": "amount", "type": "double" },
+    { "name": "detected_at", "type": "string" }
+  ]
+}

@@ -30,9 +30,9 @@ public class OrderStatusStreamsApplication {
         );
 
         private static final Schema FRAUD_ALERT_SCHEMA = new Schema.Parser().parse(
-                        "{\"type\":\"record\",\"name\":\"PaymentRequested\",\"namespace\":\"com.example.events.payments.v1\"," +
+                        "{\"type\":\"record\",\"name\":\"FraudAlert\",\"namespace\":\"com.example.events.risk.v1\"," +
                                         "\"fields\":[{\"name\":\"order_id\",\"type\":\"string\"},{\"name\":\"amount\",\"type\":\"double\"}," +
-                                        "{\"name\":\"requested_at\",\"type\":\"string\"}]}"
+                                        "{\"name\":\"detected_at\",\"type\":\"string\"}]}"
         );
 
     public static void main(String[] args) {
@@ -130,7 +130,7 @@ public class OrderStatusStreamsApplication {
         GenericRecord fraudAlert = new GenericData.Record(FRAUD_ALERT_SCHEMA);
         fraudAlert.put("order_id", order.get("order_id").toString());
         fraudAlert.put("amount", extractAmount(order));
-        fraudAlert.put("requested_at", Instant.now().toString());
+        fraudAlert.put("detected_at", Instant.now().toString());
         return fraudAlert;
     }
 
